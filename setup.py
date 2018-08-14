@@ -1,13 +1,13 @@
 from distutils.core import setup
 
 setup(
-    name='chimera_template',
+    name='chimera_sonoff',
     version='0.0.1',
-    packages=['chimera_template', 'chimera_template.instruments', 'chimera_template.controllers'],
+    packages=['chimera_sonoff', 'chimera_sonoff.instruments'],
     scripts=[],
-    url='http://github.com/astroufsc/chimera-template',
+    url='http://github.com/astroufsc/chimera-sonoff',
     license='GPL v2',
     author='William Schoenell',
-    author_email='william@iaa.es',
-    description='Template for chimera plugins'
+    author_email='william@astro.ufsc.br',
+    description='Chimera plugin for Tasmota SONOFF switches'
 )
