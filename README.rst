@@ -1,47 +1,37 @@
-chimera-template plugin
-=======================
+chimera-sonoff plugin
+=====================
 
-This is a template plugin for the chimera observatory control system
-https://github.com/astroufsc/chimera.
+Controls SONOFF switches with Tasmota firmware: https://github.com/arendst/Sonoff-Tasmota
 
 Usage
 -----
 
-Rename chimera_template for your plugin name. It is important that the plugin
-name must start with chimera\_ to be found by chimera. Instruments and
-controllers must follow the standard ``chimera_(plugin_name)/(instruments|controllers)/(plugin).py``
-
-The class inside ``(plugin).py`` should be named Plugin (with CamelCase letters).
-
-For more info: https://github.com/astroufsc/chimera/blob/master/docs/site/chimerafordevs.rst#chimera-objects
-
+Install plugin and configure with the ports you want to control.
 
 Installation
 ------------
 
-Installation instructions. Dependencies, etc...
+Install using pip:
 
 ::
 
-   pip install -U chimera_template
-
-or
-
-::
-
-    pip install -U git+https://github.com/astroufsc/chimera-template.git
+    pip install -U https://github.com/astroufsc/chimera-sonoff/archive/master.zip
 
 
 Configuration Example
 ---------------------
 
-Here goes an example of the configuration to be added on ``chimera.config`` file.
+An configuration example to control the 4th port of a SONOFF 4ch as primary mirror *M1* fan.
 
 ::
 
-    instrument:
-        name: model
-        type: Example
+    fans:
+      type: SONOFF
+      name: M1fan
+      device: 192.168.0.1
+      output: 4
+      user: admin
+      password: admin
 
 
 Tested Hardware (for instruments)
@@ -49,8 +39,7 @@ Tested Hardware (for instruments)
 
 This plugin was tested on these hardware:
 
-* Hardware example 1, model 2
-* Hardware example 2, model 3
+* Sonoff-Tasmota 5.14.0, Sonoff-Tasmota 5.14.0
 
 
 Contact
@@ -60,4 +49,4 @@ For more information, contact us on chimera's discussion list:
 https://groups.google.com/forum/#!forum/chimera-discuss
 
 Bug reports and patches are welcome and can be sent over our GitHub page:
-https://github.com/astroufsc/chimera-template/
+https://github.com/astroufsc/chimera-sonoff/
