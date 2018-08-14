@@ -39,7 +39,7 @@ Tested Hardware (for instruments)
 
 This plugin was tested on these hardware:
 
-* Sonoff-Tasmota 5.14.0, Sonoff-Tasmota 5.14.0
+* Sonoff 4ch, Sonoff-Tasmota 5.14.0
 
 
 Contact
