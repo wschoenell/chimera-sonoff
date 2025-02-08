@@ -1,0 +1,54 @@
+[project]
+name = "chimera-sonoff"
+version = "0.2"
+description = "Chimera SONOFF plugin"
+readme = "README.rst"
+license = "GPL-2.0-or-later"
+authors = [
+    { name = "Paulo Henrique Silva", email = "ph.silva@gmail.com" },
+    { name = "William Schoenell", email = "wschoenell@gmail.com" },
+]
+urls = { "homepage" = "https://github.com/astroufsc/chimera-sonoff", "source" = "https://github.com/astroufsc/chimera-sonoff" }
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+
+requires-python = ">=3.12"
+dependencies = [
+    #    "chimera",
+    "chimera",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "black>=25.1.0",
+    "chimera-sonoff",
+    "pre-commit>=4.1.0",
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.9.4",
+]
+
+[tool.uv.sources]
+chimera-sonoff = { workspace = true }
+chimera = { path = "../chimera" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"

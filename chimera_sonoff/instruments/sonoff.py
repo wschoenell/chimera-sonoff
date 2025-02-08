@@ -1,5 +1,5 @@
 import json
-import urllib2
+import urllib.request
 
 from chimera.core.chimeraobject import ChimeraObject
 from chimera.interfaces.switch import Switch
@@ -14,16 +14,15 @@ class SONOFF(ChimeraObject, Switch):
                   }
 
     def __init__(self):
-        super(SONOFF, self).__init__()
+        super().__init__()
         self.states = None
 
     def _setstate(self, state):
-        addr = "http://%s/cm?user=%s&password=%s&cmnd=POWER%i%%20%i" % (
-        self["device"], self["user"], self["password"], self["output"], state)
-        contents = json.loads(urllib2.urlopen(addr, timeout=1).read())
-
-        target_state = "ON" if state == 1 else "OFF"
-        return contents["POWER%i" % self["output"]] == target_state
+        addr = f"http://{self['device']}/cm?user={self['user']}&password={self['password']}&cmnd=POWER{self['output']}%20{state}"
+        with urllib.request.urlopen(addr, timeout=1) as response:
+            contents = json.loads(response.read().decode())
+        target_state = True if state == 1 else False
+        return self._ParseIsSwitchedOn(contents) == target_state
 
     def switchOn(self):
         if not self.isSwitchedOn():
@@ -46,7 +45,14 @@ class SONOFF(ChimeraObject, Switch):
             return True
 
     def isSwitchedOn(self):
-        addr = "http://%s/cm?user=%s&password=%s&cmnd=POWER%i" % (
-        self["device"], self["user"], self["password"], self["output"])
-        contents = json.loads(urllib2.urlopen(addr, timeout=1).read())
-        return contents["POWER%i" % self["output"]] == "ON"
+        addr = f"http://{self['device']}/cm?user={self['user']}&password={self['password']}&cmnd=POWER{self['output']}"
+        print(addr)
+        with urllib.request.urlopen(addr, timeout=1) as response:
+            contents = json.loads(response.read().decode())
+        return self._ParseIsSwitchedOn(contents)
+        
+    def _ParseIsSwitchedOn(self, contents):
+        if "POWER" in contents:
+            return contents["POWER"] == "ON"
+        else:
+            return contents[f"POWER{self['output']}"] == "ON"
